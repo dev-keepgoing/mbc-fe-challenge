@@ -8,6 +8,17 @@ This README outlines the **project details, architectural decisions, and technol
 
 ---
 
+## ⚙ Installation & Setup
+
+Clone the repository and install dependencies:
+```sh
+git clone https://github.com/dev-keepgoing/mbc-fe-challenge.git
+cd mbc-fe-challenge
+npm install
+npm run dev
+
+---
+
 ## 🚀 Project Overview
 
 This web application consists of two main pages:
@@ -80,17 +91,22 @@ This project was designed with **performance, scalability, and clean state manag
 
 ## 🏛 Project Structure
 
+
 The codebase follows a **modular architecture**, making it **scalable and maintainable**.
 
-/src
- ├── /components       # UI components (e.g., ProgressBar)
- ├── /constants        # Constant values (e.g., Job Status)
- ├── /pages            # React pages (DatasetUploadPage, JobsPage)
- ├── /services         # Business logic (Dataset & Job simulation, Web Workers)
- ├── /store            # Zustand state management (datasetStore, jobStore)
- ├── /types            # TypeScript types (Dataset, Job)
- ├── /utils            # Helper functions (timestamps, job status updates)
- ├── /workers          # Web Worker files (jobWorker)
+## 🏗 Project Structure
+
+The codebase follows a **modular architecture**, making it **scalable and maintainable**.
+
+  - **`/components`** - Reusable UI components (e.g., `ProgressBar`).
+  - **`/constants`** - Constant values used throughout the application (e.g., `Job Status`).
+  - **`/pages`** - React pages (`DatasetUploadPage`, `JobsPage`).
+  - **`/services`** - Business logic for handling Datasets, Jobs, and Web Workers.
+  - **`/store`** - Zustand state management (`datasetStore`, `jobStore`).
+  - **`/types`** - TypeScript interfaces and types (`Dataset`, `Job`).
+  - **`/utils`** - Helper functions (e.g., timestamps, job status updates).
+  - **`/workers`** - Web Worker files (`jobWorker.ts`) to handle background processes.
+
 
 ---
 
@@ -102,16 +118,6 @@ The codebase follows a **modular architecture**, making it **scalable and mainta
 ✅ **Web Workers** - Async job execution (WASM-ready)  
 ✅ **LocalStorage** - Persistent client-side data storage  
 ✅ **Tailwind CSS** - For clean and responsive UI  
-
----
-
-## ⚙ Installation & Setup
-
-Clone the repository and install dependencies:
-git clone <your-repo-url>
-cd your-project-folder
-npm install
-npm run dev
 
 ---
 
