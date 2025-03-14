@@ -16,6 +16,7 @@ git clone https://github.com/dev-keepgoing/mbc-fe-challenge.git
 cd mbc-fe-challenge
 npm install
 npm run dev
+```
 
 ---
 
