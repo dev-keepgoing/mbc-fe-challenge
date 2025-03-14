@@ -1,0 +1,5 @@
+export enum WORKER_STATUS {
+    COMPLETE = "COMPLETE",
+    CANCEL = "CANCEL",
+    IN_PROGRESS = "IN_PROGRESS",
+  };
