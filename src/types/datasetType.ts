@@ -2,7 +2,7 @@
 export type Dataset = {
     id: string;
     name: string;
-    data: string[];
+    data: Record <string, string>[];
     uploadedAt: string;
   };
   

@@ -5,4 +5,5 @@ export type DatasetStoreType = {
   fetchDatasets: () => Promise<void>;
   addDataset: (dataset: Dataset) => Promise<void>;
   removeDataset: (datasetId: string) => Promise<void>;
+  updateDatasetsBulk:(dataset:Dataset) => Promise<void>
 };

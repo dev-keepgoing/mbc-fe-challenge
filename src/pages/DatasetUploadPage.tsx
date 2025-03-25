@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react";
 import { Dataset } from "../types/datasetType";
 import { v4 as uuidv4 } from "uuid";
-import { FaUpload, FaTrash, FaPlayCircle } from "react-icons/fa";
+import { FaUpload, FaTrash, FaPlayCircle, FaTable } from "react-icons/fa";
 import { useDatasetStore } from "../store/datasets/datasetStore";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
+import CardInfo from "../components/CardInfo";
+import { parseCSV } from "../utils/datasetUtils";
+import CSVTable from "../components/CSVTable";
+import ModalView from "../components/ModalView";
 
 const DatasetUploadPage: React.FC = () => {
     const { datasets, addDataset, removeDataset, fetchDatasets } = useDatasetStore();
+    const [previewDataSet, setPreviewDataSet] = useState<Dataset>();
     const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
     const navigate = useNavigate();
 
@@ -29,11 +34,12 @@ const DatasetUploadPage: React.FC = () => {
             const reader = new FileReader();
             reader.onload = (e) => {
                 const content = e.target?.result as string;
+                const parsedData = parseCSV(content)
                 const dataset: Dataset = {
                     id: uuidv4(),
                     name: file.name,
                     uploadedAt: new Date().toISOString(),
-                    data: content.split("\n"),
+                    data: parsedData
                 };
                 addDataset(dataset);
             };
@@ -42,6 +48,14 @@ const DatasetUploadPage: React.FC = () => {
 
         setSelectedFiles([]);
     };
+
+    const handlePreviewDataset = ( data:Dataset) => {
+        setPreviewDataSet(data);
+    }
+
+    const clearPreview = () => {
+        setPreviewDataSet(undefined);
+    }
 
     const handleDeleteDataset = (datasetId: string) => {
         removeDataset(datasetId);
@@ -53,6 +67,9 @@ const DatasetUploadPage: React.FC = () => {
 
     return (
         <div>
+            <div>
+                <CardInfo/>
+            </div>
             <h1 className="text-2xl font-semibold mb-4">📂 Upload Datasets</h1>
 
             <div className="flex flex-col gap-2 mb-6">
@@ -90,6 +107,8 @@ const DatasetUploadPage: React.FC = () => {
                 >
                     Upload Selected Files
                 </button>
+
+                
             </div>
 
             <h2 className="text-xl font-semibold mb-3">📊 Uploaded Datasets</h2>
@@ -136,13 +155,23 @@ const DatasetUploadPage: React.FC = () => {
                                         >
                                             <FaPlayCircle />
                                         </button>
+                                        <button
+                                            className="px-2 py-1 bg-purple-500 text-white rounded text-sm hover:bg-purple-600 transition"
+                                            onClick={() => handlePreviewDataset(dataset)}
+                                        >
+                                            <FaTable />
+                                        </button>
                                     </td>
                                 </tr>
+                                
                             ))
                         )}
                     </tbody>
                 </table>
             </div>
+            <ModalView isOpen={previewDataSet !== undefined} onClose={clearPreview}>
+                <CSVTable dataset={previewDataSet}/>
+            </ModalView>
         </div>
     );
 };

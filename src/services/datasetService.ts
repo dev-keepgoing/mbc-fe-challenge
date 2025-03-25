@@ -32,12 +32,22 @@ export const addDatasetToBackend = async (dataset: Dataset): Promise<Dataset> =>
   });
 };
 
-export const deleteDatasetFromBackend = async (datasetId: string): Promise<void> => {
+export const deleteDatasetFromBackend = async (datasetId: string): Promise<Dataset[]> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       datasets = datasets.filter((dataset) => dataset.id !== datasetId);
       saveState(datasets);
-      resolve();
+      resolve(datasets);
     }, 500);
   });
+};
+
+  export const updateDataSet = async (datasetId: string, datasetNew: Dataset): Promise<Dataset[]> => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        datasets = datasets.map((dataset) => dataset.id === datasetId ? { ...datasetNew, id:dataset.id} : dataset);
+        saveState(datasets);
+        resolve(datasets);
+      }, 500);
+    });
 };

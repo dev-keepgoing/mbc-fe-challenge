@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { DatasetStoreType } from "./datasetStoreType";
 import { Dataset } from "../../types/datasetType";
-import { fetchDatasets, addDatasetToBackend, deleteDatasetFromBackend } from "../../services/datasetService";
+import { fetchDatasets, addDatasetToBackend, deleteDatasetFromBackend, updateDataSet } from "../../services/datasetService";
 
 export const useDatasetStore = create<DatasetStoreType>((set, get) => ({
   datasets: [],
@@ -32,7 +32,12 @@ export const useDatasetStore = create<DatasetStoreType>((set, get) => ({
   },
 
   removeDataset: async (datasetId) => {
-    await deleteDatasetFromBackend(datasetId);
-    set((state) => ({ datasets: state.datasets.filter((dataset) => dataset.id !== datasetId) }));
+    const newDataSets = await deleteDatasetFromBackend(datasetId);
+    set(() => ({ datasets: newDataSets }));
+  },
+
+  updateDatasetsBulk: async (modifyDataSet: Dataset) => {
+    const newDataSet = await updateDataSet(modifyDataSet.id, modifyDataSet);
+    set(() => ({datasets:newDataSet}))
   },
 }));

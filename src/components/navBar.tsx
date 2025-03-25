@@ -14,6 +14,7 @@ const Navbar: React.FC = () => {
         <div className="space-x-4 flex items-center">
           <Link to="/" className="hover:text-gray-300">Upload Datasets</Link>
           <Link to="/jobs" className="hover:text-gray-300">Run Jobs</Link>
+          <Link to="/feedback" className="hover:text-gray-300">Feedback</Link>
         </div>
 
       </div>
